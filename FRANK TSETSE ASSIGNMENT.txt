@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class TemperatureConverter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            System.out.println("Choose an option");
+            System.out.println("1. Convert Celsius to Fahrenheit");
+            System.out.println("2. Convert Fahrenheit to Celsius");
+            int choice = getChoice(scanner);
+            double temperature = getTemperature(scanner);
+            double convertedTemperature = convertTemperature(choice, temperature);
+            printResult(choice, temperature, convertedTemperature);
+        } finally {
+            scanner.close();
+        }
+        System.out.println("THANKS FOR USING FRANCO'S TEMPERATURE CONVERTER. Hope you had a great user experience.");
+    }
+
+    private static int getChoice(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.println("Enter your option (1 / 2): ");
+                int choice = Integer.parseInt(scanner.nextLine());
+                if (choice == 1 || choice == 2) {
+                    return choice;
+                } else {
+                    System.out.println("Invalid input");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Enter a numeric value.");
+            }
+        }
+    }
+
+    private static double getTemperature(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.println("Enter the temperature: ");
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Enter a numeric value.");
+            }
+        }
+    }
+
+    private static double convertTemperature(int choice, double temperature) {
+        if (choice == 1) {
+            return (temperature * 9 / 5) + 32;
+        } else {
+            return (temperature - 32) * 5 / 9;
+        }
+    }
+
+    private static void printResult(int choice, double temperature, double convertedTemperature) {
+        String unit = choice == 1 ? "Celsius" : "Fahrenheit";
+        String convertedUnit = choice == 1 ? "Fahrenheit" : "Celsius";
+        System.out.printf("%.2f %s is equal to %.2f %s%n", temperature, unit, convertedTemperature, convertedUnit);
+    }
+}
